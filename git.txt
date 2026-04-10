@@ -1,0 +1,39 @@
+---
+- name: Basic Ansible Automation
+  hosts: localhost
+  connection: local
+  tasks:
+    - name: Create a text file
+      file:
+        path: /home/$USER/ansible_file.txt
+        state: touch
+
+
+compose
+version: "3"
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                bat 'echo Building'
+            }
+        }
+        stage('Test') {
+            steps {
+                bat 'echo Testing'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat 'echo Deploying'
+            }
+        }
+    }
+}
